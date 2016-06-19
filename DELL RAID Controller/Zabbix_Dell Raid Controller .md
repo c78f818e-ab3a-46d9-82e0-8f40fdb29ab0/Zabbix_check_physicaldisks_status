@@ -1,4 +1,4 @@
-# Hướng dẫn lấy thông tin ổ cứng trên Server sử dụng HP RAID Controller
+# Hướng dẫn lấy thông tin ổ cứng trên Server sử dụng Dell RAID Controller
 ## 1. Trên Server cần giám sát
 
 ### 1.1. Cài đặt gói megacli trên Server cần giám sát(hướng dẫn tại [đây](https://github.com/longsube/Notes/blob/master/Megacli-Dell%20RAID%20Controller.md))
