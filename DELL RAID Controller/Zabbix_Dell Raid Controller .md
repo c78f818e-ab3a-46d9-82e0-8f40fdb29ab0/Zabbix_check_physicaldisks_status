@@ -2,7 +2,7 @@
 ## 1. Trên Server cần giám sát
 
 ### 1.1. Cài đặt gói megacli trên Server cần giám sát(hướng dẫn tại [đây](https://github.com/longsube/Notes/blob/master/Megacli-Dell%20RAID%20Controller.md))
-### 1.2 cài đặt zabbix-agent trên Server cần giám sát:
+### 1.2. Cài đặt zabbix-agent trên Server cần giám sát:
 ```
 apt-get install zabbix-agent -y
 ```
@@ -34,7 +34,7 @@ AllowRoot=1
 UserParameter=custom.vfs.dev.discovery, sudo /usr/bin/python /opt/zabbix/linux/megacli-status
 ```
 
-### 1.5. Cau hinh zabbix agent lay thong tin o dia
+### 1.5. Cấu hinh zabbix agent lấy thông tin ổ đĩa
 ```
 cd /etc/zabbix/zabbix_agentd.conf.d
 wget https://raw.githubusercontent.com/longsube/Zabbix_check_physicaldisks_status/master/DELL%20RAID%20Controller/dell-disk-status%20.conf
@@ -58,7 +58,7 @@ Zabbix Server dựa vào key `custom.vfs.dev.status[{#DISK}]`, thời gian lấy
 ![Get disk temperature](http://image.prntscr.com/image/d7729eb77bc84155a01c3163d9aaec08.png)
 Zabbix Server dựa vào key `custom.vfs.dev.temperature[{#DISK}]`, thời gian lấy mẫu là 30s, loại thông tin là *numeric*
 
-### 2.5. Add host cần giám sát
+### 2.5. Thêm host cần giám sát
 ![Add host](http://image.prntscr.com/image/1a3efc6b61204c288347aa7f41539b55.png)
 Đưa template `Template Linux Disk Status` giám sát đisk vào host
 
