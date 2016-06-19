@@ -188,6 +188,7 @@ for controller_id in controllers:
         resulting_info[controller_id]['disks'].append(
             [str(controller_number), virtual_disk, disk_id, model, state, disk_temperature, slot_id])
 
+# Xuat cac thong tin ve status, temperature cua disk
 
     for controller in sorted(resulting_info.keys()):
         for disk in sorted(resulting_info[controller]['disks']):

@@ -1,7 +1,7 @@
 # Hướng dẫn lấy thông tin ổ cứng trên Server sử dụng HP RAID Controller
 ## 1. Trên Server cần giám sát
 
-### 1.1. Cài đặt gói hpacucli trên Server cần giám sát(https://github.com/longsube/Notes/blob/master/hpacucli-HP%20RAID%20Controller.md)
+### 1.1. Cài đặt gói hpacucli trên Server cần giám sát(hướng dẫn tại [đây](https://github.com/longsube/Notes/blob/master/hpacucli-HP%20RAID%20Controller.md))
 ### 1.2 cài đặt zabbix-agent trên Server cần giám sát:
 ```
 apt-get install zabbix-agent -y
@@ -11,8 +11,8 @@ apt-get install zabbix-agent -y
 ```
 mkdir -p /opt/zabbix/linux
 cd /opt/zabbix/linux
-wget 
-wget
+wget https://raw.githubusercontent.com/longsube/Zabbix_check_physicaldisks_status/master/hpacucli-disk-decovery
+wget https://raw.githubusercontent.com/longsube/Zabbix_check_physicaldisks_status/master/hpacucli-disk-status
 chmod +x 
 chown -R zabbix:zabbix /opt/zabbix
  ```
@@ -35,8 +35,9 @@ UserParameter=custom.vfs.dev.discovery, sudo /usr/bin/python /opt/zabbix/linux/h
 ```
 
 ### 1.5. Cau hinh zabbix agent lay thong tin o dia
+```
 cd /etc/zabbix/zabbix_agentd.conf.d
-wget hpa-disk-status.conf
+wget https://raw.githubusercontent.com/longsube/Zabbix_check_physicaldisks_status/master/hpa-disk-status.conf
 service zabbix-agent restart
 ```
 
