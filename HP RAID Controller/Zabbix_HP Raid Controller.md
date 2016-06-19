@@ -1,4 +1,4 @@
-# Hướng dẫn lấy thông tin ổ cứng trên Server sử dụng HP RAID Controller (test trên Server Dell HP360pG8)
+# Hướng dẫn lấy thông tin ổ cứng trên Server sử dụng HP RAID Controller *(test trên Server Dell HP360pG8)*
 ## 1. Trên Server cần giám sát
 
 ### 1.1. Cài đặt gói hpacucli trên Server cần giám sát(hướng dẫn tại [đây](https://github.com/longsube/Notes/blob/master/hpacucli-HP%20RAID%20Controller.md))
