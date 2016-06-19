@@ -90,25 +90,25 @@ something_is_wrong = False
 resulting_info = {}
 
 
-    # Get the number of controllers
-    output = get_output('-adpCount -NoLog')
-    controllers_number = int(get_info('Controller Count', output).rstrip
-    controllers = ['c' + str(a) for a in range(controllers_number)]
-# Start collecting info about the controllers
+#Lay so luong Controller
+output = get_output('-adpCount -NoLog')
+controllers_number = int(get_info('Controller Count', output).rstrip
+controllers = ['c' + str(a) for a in range(controllers_number)]
+
+# Lay thong tin cua Controller
 for controller_id in controllers:
     controller_number = controller_id.lstrip('c')
     output = get_output('-AdpAllInfo -a{0} -NoLog'.format(controller_number))
     controllermodel = get_info('Product Name', output)
     resulting_info[controller_id] = {}
     resulting_info[controller_id]['model'] = controllermodel
-    # Now for the array info
+    #Lay thong tin array(virtual disk)
     output = get_output('-LdGetNum -a{0} -NoLog'.format(controller_number))
     arrays_number = int(get_info(r'^Number of Virtual (Disk|Drive).*$',
                                  output))
     resulting_info[controller_id]['arrays'] = {}
     for array_number in range(arrays_number):
-        # Temporary list to store information for each array
-        # Format: [drives_number, raid_type, size, state, operation]
+       
         this_array = []
         array_id = 'c{0}u{1}'.format(controller_number, array_number)
         output = get_output('-LDInfo -l{0} -a{1} -NoLog'.format(array_number,
@@ -124,10 +124,8 @@ for controller_id in controllers:
         raid_level_string = get_info('RAID Level', output)
         if not raid_level_string:
             exiterror('Cannot fetch raid level for array ' + array_id)
-        # Extract the raid level
         raid_level = raid_level_string.split(',')[0].split('-')[1]
         raid_type = 'RAID' + raid_level
-        # Not too sure what this does
         if drives_number and (int(span_depth) > 1):
             drives_number = int(drives_number) * int(span_depth)
             if int(raid_level) < 10:
@@ -149,7 +147,6 @@ for controller_id in controllers:
 
         operation = get_info('Ongoing Progresses', output)
         if operation:
-            # We need the following line for the description of what's going on
             operation = [output[output.index(tup) + 1] for tup in output
                             if tup[0] == 'Ongoing Progresses']
         if not operation:
@@ -157,7 +154,7 @@ for controller_id in controllers:
 
         this_array = [str(drives_number), raid_type, size, state, operation]
         resulting_info[controller_id]['arrays'][array_id] = this_array
-    # Finally moving to physical disks
+    # Lay thong tin o dia cung
     resulting_info[controller_id]['disks'] = []
     output = get_output('-LdPdInfo -a{0} -NoLog'.format(controller_number))
     # There can be different enclosures attached to the same controller
@@ -179,7 +176,6 @@ for controller_id in controllers:
 
         model = re.sub(r'\s+', ' ', get_info('Inquiry Data', output))
 
-        # Sometimes a typo is returned. For real.
         virtual_disk_string = get_info("Drive's position", output)
         if not virtual_disk_string:
             virtual_disk_string = get_info("Drive's postion", output)

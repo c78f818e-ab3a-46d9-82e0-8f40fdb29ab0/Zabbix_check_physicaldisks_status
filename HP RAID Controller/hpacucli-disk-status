@@ -66,7 +66,7 @@ something_is_wrong = False
 resulting_info = {}
 disks = {}
 
-    # Get the number of controllers
+#Lấy ra Serial number cua RAID Controller
 output = get_output('ctrl all show detail')
 controllers_id = get_info('Slot', output, output_format='list')
 serial_number = get_info('Serial Number', output, output_format='list')
