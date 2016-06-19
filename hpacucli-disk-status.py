@@ -1,0 +1,104 @@
+#!/usr/bin/python
+
+
+import os
+import re
+from sys import argv, exit
+import argparse
+
+
+
+
+def exiterror(msg, error_code=2):
+    '''
+    Exit with a specific error code (default 2)
+    :msg: Message to be returned
+    :error_code: Exit code
+    '''
+    print 'ERROR - ' + msg
+    exit(error_code)
+
+
+def get_output(flags):
+    '''
+    Execute megacli with the specified flags and return the output
+    Assumes that none of the keys in the output has a colon (:) in the name
+    :flags: flags for megacli
+    :return: a dictionary with the output of the command
+    '''
+    cmd = binarypath + ' ' + flags
+    output = os.popen(cmd).read()
+    lines = []
+    for line in output.split('\n'):
+        if ':' in line:
+            k, v = line.split(':', 1)
+            lines += [(k.strip(), v.strip())]
+    return lines
+
+
+def get_info(key, input, output_format='string'):
+    '''
+    Extract information from the output of get_output
+    :key: the regexp for the needed key
+    :input: output from get_output
+    :output_format: preferred output format (list or string)
+    :return: the requested information as a list or string
+    '''
+    res = []
+    try:
+        for elem in input:
+            if re.match(key, elem[0]):
+                if output_format == 'string':
+                    return elem[1]
+                else:
+                    res.append(elem[1])
+        return res
+    except KeyError:
+        print 'ERROR - Key {0} not found'.format(key)
+        exit(2)
+
+
+binarypath = '/usr/sbin/hpacucli'
+something_is_wrong = False
+
+
+
+resulting_info = {}
+disks = {}
+
+    # Get the number of controllers
+output = get_output('ctrl all show detail')
+controllers_id = get_info('Slot', output, output_format='list')
+serial_number = get_info('Serial Number', output, output_format='list')
+for i in range(len(controllers_id)):
+    resulting_info[controllers_id[i]] = {}
+    resulting_info[controllers_id[i]]['model'] = serial_number[i]
+
+for controller_id in controllers_id:
+    cmd = binarypath + ' ' + 'ctrl slot={0} pd all show status'.format(controller_id)
+    out = os.popen(cmd).read()
+    output = os.linesep.join([s for s in out.splitlines() if s])
+
+    lines = []
+    for line in output.split('\n'):
+        lines.append(line.split()[1])
+    resulting_info[controller_id]['disks'] = lines
+
+for controller_id in controllers_id:
+    for physical_id in resulting_info[controller_id]['disks']:
+        output = get_output('ctrl slot={0} pd {1} show detail'.format(controller_id,physical_id))
+        bay = get_info('Bay', output)
+        status = get_info('Status', output)
+        current_Temperature = get_info('Current Temperature', output)
+        maximum_Temperature = get_info('Maximum Temperature', output)
+        disks[physical_id]={}
+        disks[physical_id]['bay'] = bay
+        disks[physical_id]['status'] = status
+        disks[physical_id]['Current Temperature'] = current_Temperature
+        disks[physical_id]['Maximum Temperature'] = maximum_Temperature
+
+# Xuat cac thong tin ve status, temperature cua disk
+for controller_id in sorted(controllers_id):
+    for physical_id in sorted(resulting_info[controller_id]['disks']):
+        print '{0} {1} {2}'.format(disks[physical_id]['bay'], disks[physical_id]['status'], disks[physical_id]['Current Temperature'])
+        
