@@ -11,8 +11,8 @@ apt-get install zabbix-agent -y
 ```
 mkdir -p /opt/zabbix/linux
 cd /opt/zabbix/linux
-wget https://raw.githubusercontent.com/longsube/Zabbix_check_physicaldisks_status/master/hpacucli-disk-decovery
-wget https://raw.githubusercontent.com/longsube/Zabbix_check_physicaldisks_status/master/hpacucli-disk-status
+wget https://raw.githubusercontent.com/longsube/Zabbix_check_physicaldisks_status/master/HP%20RAID%20Controller/hpacucli-disk-decovery
+wget https://raw.githubusercontent.com/longsube/Zabbix_check_physicaldisks_status/master/HP%20RAID%20Controller/hpacucli-disk-status
 chmod +x 
 chown -R zabbix:zabbix /opt/zabbix
  ```
@@ -37,7 +37,7 @@ UserParameter=custom.vfs.dev.discovery, sudo /usr/bin/python /opt/zabbix/linux/h
 ### 1.5. Cau hinh zabbix agent lay thong tin o dia
 ```
 cd /etc/zabbix/zabbix_agentd.conf.d
-wget https://raw.githubusercontent.com/longsube/Zabbix_check_physicaldisks_status/master/hpa-disk-status.conf
+wget https://github.com/longsube/Zabbix_check_physicaldisks_status/blob/master/HP%20RAID%20Controller/hpa-disk-status.conf
 service zabbix-agent restart
 ```
 

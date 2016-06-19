@@ -11,8 +11,8 @@ apt-get install zabbix-agent -y
 ```
 mkdir -p /opt/zabbix/linux
 cd /opt/zabbix/linux
-wget https://raw.githubusercontent.com/longsube/Zabbix_check_physicaldisks_status/master/megacli-disk-decovery
-wget https://raw.githubusercontent.com/longsube/Zabbix_check_physicaldisks_status/master/megacli-disk-status
+wget https://raw.githubusercontent.com/longsube/Zabbix_check_physicaldisks_status/master/DELL%20RAID%20Controller/megacli-disk-decovery
+wget https://raw.githubusercontent.com/longsube/Zabbix_check_physicaldisks_status/master/DELL%20RAID%20Controller/megacli-disk-status
 chmod +x 
 chown -R zabbix:zabbix /opt/zabbix
  ```
@@ -37,7 +37,7 @@ UserParameter=custom.vfs.dev.discovery, sudo /usr/bin/python /opt/zabbix/linux/m
 ### 1.5. Cau hinh zabbix agent lay thong tin o dia
 ```
 cd /etc/zabbix/zabbix_agentd.conf.d
-wget https://raw.githubusercontent.com/longsube/Zabbix_check_physicaldisks_status/master/dell-disk-status.conf
+wget https://raw.githubusercontent.com/longsube/Zabbix_check_physicaldisks_status/master/DELL%20RAID%20Controller/dell-disk-status%20.conf
 service zabbix-agent restart
 ```
 
@@ -63,4 +63,4 @@ Zabbix Server dựa vào key `custom.vfs.dev.temperature[{#DISK}]`, thời gian 
 Đưa template `Template Linux Disk Status` giám sát đisk vào host
 
 ### 2.6. Kiểm tra các thông tin ổ đĩa
-![check](hhttp://image.prntscr.com/image/7f545351c505440cac9508a51b81033c.png)
+![check](http://image.prntscr.com/image/7f545351c505440cac9508a51b81033c.png)
