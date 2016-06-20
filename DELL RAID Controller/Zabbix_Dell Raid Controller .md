@@ -27,14 +27,14 @@ Server=172.16.69.45
 #hostname cua Zabbix agent
 Hostname=kvm4
 
-# cho phep user zabbix chạy với quyền `root`:
-echo "zabbix ALL=NOPASSWD: ALL" > /etc/sudoers
-
 # Dat USerparameter de zabbix agent quet so luong o dia
 UserParameter=custom.vfs.dev.discovery, sudo /usr/bin/python /opt/zabbix/linux/megacli-status
 ```
 
-### 1.5. Cấu hinh zabbix agent lấy thông tin ổ đĩa
+### 1.5. Cấu hình cho phep user zabbix chạy với quyền `root`:
+echo "zabbix ALL=NOPASSWD: ALL" > /etc/sudoers
+
+### 1.6. Cấu hinh zabbix agent lấy thông tin ổ đĩa
 ```
 cd /etc/zabbix/zabbix_agentd.conf.d
 wget https://raw.githubusercontent.com/longsube/Zabbix_check_physicaldisks_status/master/DELL%20RAID%20Controller/dell-disk-status%20.conf
