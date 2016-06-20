@@ -27,8 +27,8 @@ Server=172.16.69.45
 #hostname cua Zabbix agent
 Hostname=kvm-hpdl36001
 
-# cho phep zabbix agent chay cac cmd voi quyen root
-AllowRoot=1
+# cho phep user zabbix chạy với quyền `root`:
+echo "zabbix ALL=NOPASSWD: ALL" > /etc/sudoers
 
 # Dat USerparameter de zabbix agent quet so luong o dia
 UserParameter=custom.vfs.dev.discovery, sudo /usr/bin/python /opt/zabbix/linux/hpacucli-status
