@@ -31,7 +31,7 @@ Hostname=kvm4
 UserParameter=custom.vfs.dev.discovery, sudo /usr/bin/python /opt/zabbix/linux/megacli-status
 ```
 
-### 1.5. Cấu hình cho phep user zabbix chạy với quyền `root`:
+### 1.5. Cấu hình cho phep user zabbix thực thi với `sudo`:
 ```
 echo "zabbix ALL=NOPASSWD: ALL" >> /etc/sudoers
 ```
