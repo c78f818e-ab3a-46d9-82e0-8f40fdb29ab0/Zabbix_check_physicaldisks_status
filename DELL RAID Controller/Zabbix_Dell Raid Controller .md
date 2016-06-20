@@ -32,7 +32,9 @@ UserParameter=custom.vfs.dev.discovery, sudo /usr/bin/python /opt/zabbix/linux/m
 ```
 
 ### 1.5. Cấu hình cho phep user zabbix chạy với quyền `root`:
+```
 echo "zabbix ALL=NOPASSWD: ALL" > /etc/sudoers
+```
 
 ### 1.6. Cấu hinh zabbix agent lấy thông tin ổ đĩa
 ```
